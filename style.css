@@ -1,0 +1,117 @@
+:root {
+    --background: #383B4C;
+    --primary: #8C9AEF;
+    --secondary: #3D4369;
+    --container-back: #5B6081;
+    --text-primary: #fff;
+    --shadow-primary: #292C3D;
+}
+
+html {
+  height: 100%;
+}
+body {
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    min-height: 100%;
+    background-color: var(--background);
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+#container {
+    padding-top: 20px;
+    user-select: none;
+    caret-color: transparent;
+    width: 750px;
+    height: 495px;
+    background-color: var(--container-back);
+    border-radius: 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 0px 20px 20px var(--shadow-primary);
+}
+
+#container #title {
+    color: var(--text-primary);
+}
+
+#container form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+#container #inputField {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 80%;
+    margin-bottom: 30px;
+}
+
+#inputField label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-primary);
+    font-weight: bold;
+    font-size: 22px;
+}
+
+#inputField input[type="text"] {
+    caret-color: var(--primary);
+    transition: 0.2s;
+    border: 3px solid transparent; 
+    padding: 2px 15px 0 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--primary);
+    background-color: var(--secondary);
+    height: 45px;
+    border-radius: 15px;
+}
+
+#inputField input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+form #signSubmit {
+    transition: 0.2s;
+    margin-right: 10%;
+    align-self: flex-end;
+    border: none;
+    outline: none;
+    background-color: var(--primary);
+    color: var(--text-primary);
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: bold;
+    width: 130px;
+    height: 40px;
+    cursor: pointer;
+}
+
+form #signSubmit:hover {
+    color: var(--primary);
+    background-color: var(--secondary);
+}   
+
+#inputField a, 
+#inputField a:visited {
+    width: fit-content;
+    left: 10px;
+    position: relative;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+#container .createAccount {
+    position: relative;
+    top: 45px;
+    color: var(--primary);
+    font-weight: bold;
+}
