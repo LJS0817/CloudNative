@@ -13,18 +13,48 @@
     <div id="container">
         <h1 id="title">Hello World!</h1>
         <form action="" method="post">
-            <div id="inputField">
+            <div class="inputField">
                 <label for="id">ID</label>
                 <input type="text" id="id" spellcheck="false">
             </div>
-            <div id="inputField">
+            <div class="inputField">
                 <label for="pwd">PASSWORD</label>
-                <input type="text" id="pwd" spellcheck="false">
+                <input type="password" id="pwd" spellcheck="false">
                 <a href="#">Forgot my password</a>
+            </div>
+            <div class="inputField hidden" id="userInput">
+                <label for="username">USERNAME</label>
+                <input type="text" id="username" spellcheck="false">
             </div>
             <input id="signSubmit" type="submit" value="Sign in">
         </form>
         <a href="#" class="createAccount">Create Account</a>
     </div>
+    <script>
+        const container = document.getElementById('container');
+        const userName = document.getElementById('userInput');
+        const create = document.querySelector('.createAccount');
+        const submit = document.getElementById('signSubmit');
+
+        let signin = true;
+
+        create.onclick = (e) => {
+            e.preventDefault();
+            signin = !signin;
+
+            if(signin) {
+                container.classList.remove('up');
+                userName.classList.add('hidden');
+                create.innerText = "Create Account"
+                submit.value = "Sign in";
+            }
+            else {
+                container.classList.add('up');
+                userName.classList.remove('hidden');
+                create.innerText = "Return to Sign in";
+                submit.value = "Sign up";
+            }
+        }
+    </script>
 </body>
 </html>

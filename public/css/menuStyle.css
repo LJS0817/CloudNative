@@ -1,0 +1,27 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/* body에 Flexbox 레이아웃 적용 */
+body {
+    display: flex;
+}
+
+#sidebar {
+    height: 100%;
+    width: 90px;
+    flex-shrink: 0;
+    background-color: var(--container-back);
+}
+
+#sidebar img {
+    width: 30px;
+    height: 30px;
+}
+
+#detail {
+    height: 100%;
+    flex-grow: 1;
+}

@@ -1,37 +1,16 @@
-:root {
-    --background: #383B4C;
-    --primary: #8C9AEF;
-    --secondary: #3D4369;
-    --container-back: #5B6081;
-    --text-primary: #fff;
-    --shadow-primary: #292C3D;
-}
-
-html {
-  height: 100%;
-}
-body {
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    min-height: 100%;
-    background-color: var(--background);
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-}
-
 #container {
     padding-top: 20px;
+    padding-bottom: 35px;
     user-select: none;
     caret-color: transparent;
     width: 750px;
-    height: 495px;
     background-color: var(--container-back);
     border-radius: 45px;
     display: flex;
     flex-direction: column;
     align-items: center;
     box-shadow: 0px 0px 20px 20px var(--shadow-primary);
+    transition: 0.3s;
 }
 
 #container #title {
@@ -45,15 +24,16 @@ body {
     align-items: center;
 }
 
-#container #inputField {
+#container .inputField {
     display: flex;
     flex-direction: column;
     gap: 5px;
     width: 80%;
     margin-bottom: 30px;
+    transition: all 0.3s linear;
 }
 
-#inputField label {
+.inputField label {
     display: block;
     margin-bottom: 5px;
     color: var(--text-primary);
@@ -61,7 +41,21 @@ body {
     font-size: 22px;
 }
 
-#inputField input[type="text"] {
+.inputField label p {
+    display: inline;
+    font-size: 13px;
+    color: var(--failed-primary);
+    margin-left: 20px;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.inputField.failed label p {
+    opacity: 1;
+}
+
+.inputField input[type="text"],
+.inputField input[type="password"] {
     caret-color: var(--primary);
     transition: 0.2s;
     border: 3px solid transparent; 
@@ -74,9 +68,21 @@ body {
     border-radius: 15px;
 }
 
-#inputField input[type="text"]:focus {
+.inputField input[type="text"]:focus,
+.inputField input[type="password"]:focus {
     outline: none;
     border-color: var(--primary);
+}
+
+.inputField.failed input[type="text"],
+.inputField.failed input[type="password"] {
+    color: var(--failed-primary);
+    caret-color: var(--failed-primary);
+}
+
+.inputField.failed input[type="text"]:focus,
+.inputField.failed input[type="password"]:focus  {
+    border-color: var(--failed-primary);
 }
 
 form #signSubmit {
@@ -100,8 +106,8 @@ form #signSubmit:hover {
     background-color: var(--secondary);
 }   
 
-#inputField a, 
-#inputField a:visited {
+.inputField a, 
+.inputField a:visited {
     width: fit-content;
     left: 10px;
     position: relative;
@@ -109,9 +115,25 @@ form #signSubmit:hover {
     font-weight: bold;
 }
 
+#container.up .inputField a {
+    display: none;
+    visibility: collapse;
+}
+
 #container .createAccount {
-    position: relative;
-    top: 45px;
     color: var(--primary);
     font-weight: bold;
+}
+
+#container .inputField.hidden {
+     margin-bottom: 0;
+}
+
+#userInput {
+    max-height: 0;
+    overflow: hidden;
+}
+
+#container.up #userInput {
+    max-height: 300px; /* 실제 높이보다 충분히 큰 값 */
 }
