@@ -1,11 +1,12 @@
 :root {
     --background: #383B4C;
-    --primary: #8C9AEF;
+    --primary: #bdc6fa;
     --secondary: #3D4369;
     --container-back: #5B6081;
     --text-primary: #fff;
     --shadow-primary: #292C3D;
     --failed-primary: #ef8c8c;
+    --card-primary: #424c55;
 }
 
 html {

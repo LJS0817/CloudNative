@@ -1,27 +1,128 @@
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     height: 100%;
 }
 
-/* body에 Flexbox 레이아웃 적용 */
 body {
     display: flex;
 }
 
 #sidebar {
+    user-select: none;
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    width: 90px;
     flex-shrink: 0;
     background-color: var(--container-back);
+    padding: 40px 8px 0 8px;
+    transition: 0.3s;
 }
 
-#sidebar img {
-    width: 30px;
-    height: 30px;
+#sidebar a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 142px;
+}
+
+#sidebar a:hover {
+    background-color: var(--primary);
+}
+
+#sidebar a:hover svg path {
+    fill: var(--secondary);
+}
+
+#sidebar #hamburger {
+    transition: 0.2s;
+    padding: 8px;
+    align-self: end;
+}
+
+#sidebar.opened #hamburger {
+    transform: rotateY(-180deg);
+    align-self: flex-end;
+}
+
+#sidebar a svg path {
+    fill: var(--primary)
 }
 
 #detail {
     height: 100%;
     flex-grow: 1;
+}
+
+#sidebar .sub-menu {
+    list-style: none;
+    padding: 0;
+    margin: 50px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+#sidebar .sub-menu .menu {
+    text-decoration: none;
+    color: var(--primary);
+    font-size: 20px;
+    padding: 10px;
+    display: flex;
+    transition: 0.3s;
+}
+
+#sidebar .sub-menu .menu svg {
+    width: 28px;
+    height: 28px;
+}
+
+#sidebar .sub-menu .menu p {
+    margin: 0;
+    overflow: hidden;
+    transition: 0.3s;
+    max-width: 0;
+    opacity: 0;
+}
+
+#sidebar .sub-menu .menu:hover p {
+    color: var(--secondary);
+}
+
+#sidebar.opened .sub-menu .menu p {
+    margin: 0;
+    max-width: 200px;
+    opacity: 1;
+    margin-left: 15px;
+}
+
+.cardContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 40px;
+}
+
+.cardContainer h1 {
+    user-select: none;
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: 75px;
+}
+
+.cardContainer h1,
+.cardContainer .card:nth-child(4)  {
+    grid-column: span 2;
+}
+
+.card {
+    user-select: none;
+    background-color: var(--card-primary);
+    padding: 40px 20px;
+    border-radius: 12px;
+    text-align: center;
+    height: 230px;
+    cursor: pointer;
+    box-shadow: 0px 0px 20px 3px var(--shadow-primary);
 }
