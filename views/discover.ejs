@@ -1,0 +1,9 @@
+<div class="cardContainer">
+    <h1>Hello World</h1>
+    <% some.forEach(rooms => { %>
+        <%- include('menucard', {
+            title: card.title,
+            desc: card.desc,
+        }) %>
+    <% }); %>
+</div>

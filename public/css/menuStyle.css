@@ -27,11 +27,13 @@ body {
     border-radius: 142px;
 }
 
-#sidebar a:hover {
+#sidebar a:hover,
+#sidebar a.activate {
     background-color: var(--primary);
 }
 
-#sidebar a:hover svg path {
+#sidebar a:hover svg path,
+#sidebar a.activate svg path {
     fill: var(--secondary);
 }
 
