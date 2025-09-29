@@ -13,11 +13,11 @@ body {
     user-select: none;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: -webkit-fill-available;
     flex-shrink: 0;
     background-color: var(--container-back);
-    padding: 40px 8px 0 8px;
-    transition: 0.3s;
+    padding: 40px 8px 40px 8px;
+    transition: 0.3s;   
 }
 
 #sidebar a {
@@ -33,6 +33,36 @@ body {
 
 #sidebar a:hover svg path {
     fill: var(--secondary);
+}
+
+#sidebar #profile {
+    pointer-events: none;
+    align-self: flex-start;
+    margin-top: auto;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+#sidebar #profile #profileImg {
+    background-color: var(--primary);
+    width: 48px;
+    height: 48px;
+    border-radius: 48px;
+}
+
+#sidebar #profile #profileDetail {
+    margin-left: 0px;
+    opacity: 0;
+    max-width: 0;
+    transition: 0.3s;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+#sidebar.opened #profile #profileDetail {
+    margin-left: 10px;
+    opacity: 1;
+    max-width: 100px;
 }
 
 #sidebar #hamburger {
@@ -102,6 +132,7 @@ body {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     padding: 40px;
+    height: 90%;
 }
 
 .cardContainer h1 {
@@ -112,7 +143,7 @@ body {
 }
 
 .cardContainer h1,
-.cardContainer .card:nth-child(4)  {
+.cardContainer .card:nth-child(4) {
     grid-column: span 2;
 }
 
@@ -122,7 +153,6 @@ body {
     padding: 40px 20px;
     border-radius: 12px;
     text-align: center;
-    height: 230px;
     cursor: pointer;
     box-shadow: 0px 0px 20px 3px var(--shadow-primary);
 }
