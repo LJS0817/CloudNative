@@ -1,9 +1,13 @@
-<div class="cardContainer">
-    <h1>Hello World</h1>
-    <% some.forEach(rooms => { %>
-        <%- include('menucard', {
-            title: card.title,
-            desc: card.desc,
-        }) %>
-    <% }); %>
+<div class="roomContainer">
+    <h1>List of Rooms</h1>
+    <div class="rooms">
+        <% some.forEach(room => { %>
+            <%- include('roomcard', {
+                id: room.id,
+                title: room.title,
+                count: room.cnt,
+                isLocked: room.isLocked
+            }) %>
+        <% }); %>
+    </div>
 </div>
