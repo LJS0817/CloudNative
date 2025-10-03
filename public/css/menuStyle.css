@@ -9,6 +9,13 @@ body {
     display: flex;
 }
 
+#detail {
+    position: relative;
+    height: 100%;
+    flex-grow: 1;
+}
+
+
 #sidebar {
     user-select: none;
     display: flex;
@@ -81,12 +88,6 @@ body {
 #sidebar a svg path {
     fill: var(--primary)
 }
-
-#detail {
-    height: 100%;
-    flex-grow: 1;
-}
-
 #sidebar .sub-menu {
     list-style: none;
     padding: 0;
@@ -292,4 +293,200 @@ body {
 .roomContainer .room.locked .lockBlock .pwdInput input:focus {
     border-color: #fff; /* 포커스 시 테두리 색상 변경 */
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* 은은한 그림자 효과 */
+}
+
+
+/* 컨테이너 내부 정렬 */
+.joinContainer {
+    width: 70%;
+    user-select: none;
+    border-radius: 15px;
+    background-color: var(--container-back);
+    padding: 40px 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 45px;
+}
+
+/* 제목 스타일 */
+.joinContainer h1 {
+    color: var(--text-primary);
+    font-weight: bold;
+    font-size: 27px;
+    margin: 0;
+    align-self: flex-start;
+}
+
+/* 룸 코드 입력창 스타일 */
+.joinContainer #roomcode {
+    width: 70%;
+    height: 56px;
+    background-color: var(--background);
+    border: 2px solid transparent; /* 포커스 효과를 위한 투명 테두리 */
+    border-radius: 12px;
+    padding: 0 20px;
+    box-sizing: border-box;
+
+    color: var(--primary);
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* 룸 코드 입력창 포커스 스타일 */
+.joinContainer #roomcode:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(140, 154, 239, 0.4); /* var(--primary) 색상 기반 그림자 */
+}
+
+/* ENTER 버튼 스타일 */
+.joinContainer input[type="button"] {
+    background-color: var(--room-primary);
+    color: var(--background);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 40px;
+    
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    align-self: flex-end;
+}
+
+/* ENTER 버튼 hover 스타일 */
+.joinContainer input[type="button"]:hover {
+    background-color: var(--background);
+    color: var(--room-primary);
+}
+
+/* Main Container */
+.create-container {
+    user-select: none;
+    position: absolute;
+    top: 6%;
+    bottom: 6%;
+    right: 0;
+    left: 0;
+    margin: 100px;
+    background-color: var(--container-back);
+    border-radius: 24px;
+    padding: 40px;
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.create-container form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.create-container h1 {
+    margin: 0;
+    font-weight: bold;
+}
+
+/* Form Groups */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 17px; /* label과 input 사이의 간격 */
+}
+
+.form-group label {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Input Fields */
+.create-container input[type="text"] {
+    background-color: var(--background);
+    height: 24px;
+    border: 2px solid transparent; /* 포커스 효과를 위한 투명 테두리 */
+    border-radius: 12px;
+    padding: 15px 20px;
+    color: var(--primary);
+    font-size: 17px;
+    font-weight: bold;
+    transition: 0.2s;
+    outline: none;
+}
+
+/* 룸 코드 입력창 포커스 스타일 */
+.create-container input[type="text"]:focus {
+    border-color: var(--primary);
+}
+
+/* Input Group (Password) */
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.input-group input {
+    width: 100%;
+    flex-grow: 1; /* 남은 공간을 모두 차지 */
+}
+
+.toggle-btn {
+    background-color: var(--secondary);
+    border: none;
+    border-radius: 12px;
+    padding: 0 20px;
+    color: var(--text-primary);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Input with Button (Copy) */
+.input-with-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-button input {
+    width: 100%;
+    padding-right: 80px; /* 버튼이 들어갈 공간 확보 */
+}
+
+.copy-btn {
+    position: absolute; /* 부모 요소를 기준으로 위치 지정 */
+    right: 8px; /* 오른쪽 벽에서 8px 떨어짐 */
+    
+    background-color: var(--primary);
+    color: var(--secondary);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Create Button */
+.create-btn {
+    background-color: var(--primary);
+    color: var(--secondary);
+    border: none;
+    border-radius: 12px;
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
 }

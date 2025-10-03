@@ -14,5 +14,6 @@ app.use('/', require('./router/logoRouter'));
 app.use('/menu', require('./router/menuRouter'));
 app.use('/discover', require('./router/discoverRouter'));
 app.use('/join', require('./router/joinRouter'));
+app.use('/create', require('./router/createRouter'));
 
 app.listen(3000);
