@@ -91,7 +91,7 @@ form #signSubmit {
     align-self: flex-end;
     border: none;
     outline: none;
-    background-color: var(--primary);
+    background-color: var(--button-primary);
     color: var(--text-primary);
     border-radius: 8px;
     font-size: 17px;

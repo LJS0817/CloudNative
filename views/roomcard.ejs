@@ -1,4 +1,4 @@
-<div class="room <%= isLocked %>">
+<div class="room <%= isLocked %>" onclick="location.href='/join/<%= id %>'">
     <h2>#<%= id %></h2>
     <h2><%= title %></h2>
     <p><%= count %> / 2</p>
@@ -16,7 +16,7 @@
                     d="m12 0a12 12 0 1 0 12 12 12.013 12.013 0 0 0 -12-12zm0 22a10 10 0 1 1 10-10 10.011 10.011 0 0 1 -10 10zm0-15a2.993 2.993 0 0 0 -1 5.816v3.184a1 1 0 0 0 2 0v-3.184a2.993 2.993 0 0 0 -1-5.816zm0 4a1 1 0 1 1 1-1 1 1 0 0 1 -1 1z" />
             </svg>
             <div class="pwdInput">
-                <input type="text" name="roompwd" id="roompwd" placeholder="ENTER THE CODE">
+                <input type="text" name="roompwd" class="roompwd" placeholder="ENTER THE CODE">
             </div>
         </div>
     <% } %>
