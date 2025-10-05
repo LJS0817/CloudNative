@@ -2,6 +2,7 @@
     <h1>Hello World</h1>
     <% some.forEach(card => { %>
         <%- include('menucard', {
+            url: card.url,
             title: card.title,
             desc: card.desc,
         }) %>

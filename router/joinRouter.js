@@ -6,5 +6,9 @@ router.get('/', (req, res) => {
     content.home(req, res);
 });
 
+router.get('/:roomID', (req, res) => {
+    content.game(req, res);
+})
+
 module.exports = router;
 

@@ -9,3 +9,7 @@ sidebtn.onclick = (e) => {
     else side.classList.remove('opened');
     console.log(sideState);
 }
+
+function onClickCard(url) {
+    location.href = url;
+}

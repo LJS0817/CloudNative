@@ -4,6 +4,7 @@
     --secondary: #3D4369;
     --container-back: #5B6081;
     --text-primary: #fff;
+    --text-secondary: #8489a4;
     --shadow-primary: #292C3D;
     --failed-primary: #ef8c8c;
     --card-primary: #424c55;
@@ -11,7 +12,9 @@
 }
 
 html {
-  height: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
 body {
     font-family: 'Inter', sans-serif;
