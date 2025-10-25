@@ -11,4 +11,9 @@ export default class Vec2 {
     sub(otherVec) {
         return new Vec2(this.x - otherVec.x, this.y - otherVec.y);
     }
+
+    mag(otherVec) {
+        let v = this.sub(otherVec);
+        return Math.sqrt(v.x * v.x + v.y * v.y);
+    }
 }

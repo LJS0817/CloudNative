@@ -3,13 +3,16 @@ import Sphere from '../sphere.js';
 import Vec2 from '../vec2.js'
 
 export default class MenuScene extends Scene {
-    constructor(name, map) {
+    constructor(name, map, ui, sceneMng) {
         super(name);
-        this.map = map;
+        this.sceneMng = sceneMng;
+        this.map = map.map;
         this.drawMap = [];
         for(let i = 0; i < this.map.length; i++) {
             this.drawMap.push(new Sphere(new Vec2(0, 0)))
         }
+        ui.UpdateUIText(0, 'PRESS ENTER');
+        ui.UpdateUIText(1, '');
     }
 
     onResize(CENTER, padding) {
@@ -26,15 +29,20 @@ export default class MenuScene extends Scene {
     }
 
     update() {
-        for(let i = 0; i < this.drawMap.length; i++) {
-            this.drawMap[i].update();
-        }
+        // for(let i = 0; i < this.drawMap.length; i++) {
+        //     this.drawMap[i].update();
+        // }
     }
 
     draw(c) { 
         for(let i = 0; i < this.drawMap.length; i++) {
             this.drawMap[i].draw(c, i + 1);
         }
+    }
+
+    collisionDetection(input) {
+        // if(input.isKeyPressed())
+        
     }
 
     dispose() {

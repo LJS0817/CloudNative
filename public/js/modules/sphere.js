@@ -26,7 +26,11 @@ export default class Sphere extends Unit {
         ctx.fillText(i, this.position.x, this.position.y);
     }
 
-    onCollision(input) {
+    collsionCondition(input) {
+        return (this.position.mag(input.mousePosition) < this.radius);
+    }
 
+    onCollision(input) {
+        
     }
 }

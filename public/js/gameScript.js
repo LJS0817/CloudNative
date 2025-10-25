@@ -1,13 +1,13 @@
-import SceneManager from './modules/sceneManager.js';
+import SceneManager from './Mng/sceneManager.js';
 import Vec2 from './modules/vec2.js';
-import inputMng from './modules/inputManager.js';
 
 const canvas = document.getElementById('canvas');
 const boardContainer = document.querySelector('.board');
+const gameUI = document.querySelector('.board .gameUI');
 
 const ctx = canvas.getContext('2d');
 
-const sceneMng = new SceneManager();
+const sceneMng = new SceneManager(canvas, gameUI);
 
 let CENTER = new Vec2(0, 0);
 const padding = 110;
@@ -23,8 +23,6 @@ function resizeAndDraw() {
 resizeAndDraw();
 
 window.addEventListener('resize', resizeAndDraw);
-inputMng.attach(canvas);
-
 
 // --- 게임 루프 ---
 function gameLoop() {

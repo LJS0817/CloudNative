@@ -16,4 +16,12 @@ export default class Unit {
     draw(ctx) {
         
     }
+
+    collsionCondition(input) {
+        return (this.position.mag(input.mousePosition) < this.radius);
+    }
+
+    onCollision(input) {
+        
+    }
 }

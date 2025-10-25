@@ -127,10 +127,10 @@
     top: 30px;
     left: 0;
     right: 0;
+    bottom: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 5px;
 }
 
@@ -146,4 +146,37 @@
 
 .board .gameUI h2 {
     font-size: 1.8em
+}
+
+.board .gameUI input[type="text"],
+.board .gameUI #textView {
+    position: absolute;
+    height: 40px;
+    bottom: 35px;
+    margin: 0;
+    padding: 0 10px;
+}
+
+.board .gameUI input[type="text"] {
+    font-size: 25px;
+    background-color: transparent;
+    color: var(--button-primary);
+    font-weight: bold;
+    field-sizing: content;
+    cursor: context-menu;
+    caret-color: transparent;
+    border: 3px solid transparent;
+}
+
+.board .gameUI #textView {
+    border: 3px solid var(--button-primary);
+    background-color: transparent;
+    border-radius: 16px;
+    transition: 0.1s cubic-bezier(0, 0, 0, 1);;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.board .gameUI input[type="text"]:focus-visible {
+    outline: none;
 }

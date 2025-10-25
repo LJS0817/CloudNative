@@ -1,16 +1,20 @@
-import MenuScene from './scenes/menuScene.js';
+import MenuScene from '../modules/scenes/menuScene.js';
+import InputManager from './inputManager.js';
+import MapManager from './mapManager.js';
+import UIManager from './uiManager.js'
 
 export default class SceneManager {
-    constructor() {
-        this.map = [
-            -1, -1, -1,
-            -1, -1, -1,
-            -1, -1, -1    
-        ]
+    constructor(canvas, gameUI) {
+        this.map = new MapManager()
+        this.inputMng = new InputManager()
 
+        this.UIMng = new UIManager(gameUI);
         this.scenes = [
-            new MenuScene('menu', this.map),
+            new MenuScene('menu', this.map, this.UIMng, this),
         ];
+        
+        this.inputMng.attach(canvas, () => {this.UIMng.changeInputWidth()});
+
         this.index = -1;
         this.changeScene(0);
      }
