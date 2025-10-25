@@ -29,7 +29,7 @@ export default class InputManager {
 
         // 키보드 누름 이벤트 (window에 연결해야 전체에서 감지)
         window.addEventListener('keydown', (e) => {
-            inputCallback();
+            inputCallback(e);
             // this.keys[e.key] = true;
         });
         

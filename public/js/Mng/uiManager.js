@@ -1,6 +1,8 @@
 export default class UIMananger {
     constructor(uiParent) {
         this.ui = uiParent;
+        this.enterCallback = () => { console.log('UIMNG') };
+
         this.changeInputWidth()
         this.ui.children[2].addEventListener('input', (e) => { this.changeInputWidth() });
         // this.ui.children[2].onkeypress = (e) => {
@@ -16,5 +18,11 @@ export default class UIMananger {
 
     UpdateUIText(idx, str) {
         this.ui.children[idx].innerText = str
+    }
+
+    onEnterEvent() {
+        this.ui.children[2].value = '';
+        this.changeInputWidth()
+        this.enterCallback()
     }
 }

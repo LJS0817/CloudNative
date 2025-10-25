@@ -13,6 +13,7 @@ export default class MenuScene extends Scene {
         }
         ui.UpdateUIText(0, 'PRESS ENTER');
         ui.UpdateUIText(1, '');
+        ui.enterCallback = () => { console.log('menuScene') };
     }
 
     onResize(CENTER, padding) {

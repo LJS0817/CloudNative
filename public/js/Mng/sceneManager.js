@@ -13,7 +13,12 @@ export default class SceneManager {
             new MenuScene('menu', this.map, this.UIMng, this),
         ];
         
-        this.inputMng.attach(canvas, () => {this.UIMng.changeInputWidth()});
+        this.inputMng.attach(canvas, (e) => {
+            if(e.key === 'Enter') {
+                this.UIMng.onEnterEvent()
+            }
+            this.UIMng.changeInputWidth()
+        });
 
         this.index = -1;
         this.changeScene(0);
