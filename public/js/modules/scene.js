@@ -1,7 +1,6 @@
 export default class Scene {
-    constructor(name) {
-        this.name = name;
-    }
+    constructor() {}
+    init() { }
     start() { }
     update() { }
     draw(c) { }

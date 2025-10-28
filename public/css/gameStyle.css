@@ -157,6 +157,14 @@
     padding: 0 10px;
 }
 
+.board .gameUI.game input[type="text"],
+.board .gameUI.game #textView {
+    position: absolute;
+    top: calc(50% - 130px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .board .gameUI input[type="text"] {
     font-size: 25px;
     background-color: transparent;

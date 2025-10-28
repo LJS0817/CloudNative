@@ -10,9 +10,9 @@ export default class Sphere extends Unit {
 
     }
 
-    draw(ctx, i) {
+    draw(ctx, str) {
         ctx.beginPath();
-        ctx.arc(this.position.x, this.position.y, this.size, 0, Math.PI * 2);
+        ctx.arc(this.drawPosition.x, this.drawPosition.y, this.size, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
         ctx.fill();
         ctx.closePath();
@@ -23,11 +23,11 @@ export default class Sphere extends Unit {
         ctx.textBaseline = 'middle';
         ctx.fillStyle = 'black';
 
-        ctx.fillText(i, this.position.x, this.position.y);
+        ctx.fillText(str, this.drawPosition.x, this.drawPosition.y);
     }
 
     collsionCondition(input) {
-        return (this.position.mag(input.mousePosition) < this.radius);
+        return (this.drawPosition.mag(input.mousePosition) < this.radius);
     }
 
     onCollision(input) {

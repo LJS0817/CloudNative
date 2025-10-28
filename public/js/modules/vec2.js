@@ -16,4 +16,8 @@ export default class Vec2 {
         let v = this.sub(otherVec);
         return Math.sqrt(v.x * v.x + v.y * v.y);
     }
+
+    copy() {
+        return new Vec2(this.x, this.y);
+    }
 }

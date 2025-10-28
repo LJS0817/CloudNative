@@ -14,4 +14,8 @@ export default class MapManager {
     getMapIndex(idx) {
         return this.map[idx]
     }
+
+    getMap() {
+        return this.map.slice()
+    }
 }

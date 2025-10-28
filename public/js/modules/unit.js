@@ -6,11 +6,12 @@ export default class Unit {
         this.velocity = velocity;
         this.size = size;
         this.color = color;
+        this.drawPosition = position.copy();
     }
 
     update() {
         // 위치에 속도를 더해 유닛을 이동시킵니다.
-        this.position = this.position.add(this.velocity);
+        // this.position = this.position.add(this.velocity);
     }
 
     draw(ctx) {
@@ -18,10 +19,15 @@ export default class Unit {
     }
 
     collsionCondition(input) {
-        return (this.position.mag(input.mousePosition) < this.radius);
+        return (this.drawPosition.mag(input.mousePosition) < this.radius);
     }
 
     onCollision(input) {
         
+    }
+
+    setDrawPosition(pos) {
+        this.drawPosition.x = this.position.x + pos.x;
+        this.drawPosition.y = this.position.y + pos.y;
     }
 }

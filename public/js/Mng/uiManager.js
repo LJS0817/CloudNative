@@ -25,4 +25,12 @@ export default class UIMananger {
         this.changeInputWidth()
         this.enterCallback()
     }
+
+    addClassList(str) {
+        this.ui.classList.add(str)
+    }
+
+    removeClassList(str) {
+        this.ui.classList.remove(str)
+    }
 }
