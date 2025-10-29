@@ -29,7 +29,7 @@ export default class MenuScene extends Scene {
     start() {
         this.uiMng.UpdateUIText(0, 'PRESS ENTER');
         this.uiMng.UpdateUIText(1, '');
-        this.uiMng.enterCallback = () => { this.sceneMng.changeScene(1); };
+        this.uiMng.enterCallback = (str) => { this.sceneMng.changeScene(1); return true; };
     }
 
     update() {

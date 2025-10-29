@@ -21,9 +21,9 @@ export default class UIMananger {
     }
 
     onEnterEvent() {
-        this.ui.children[2].value = '';
+        if(this.enterCallback(this.ui.children[2].value))
+            this.ui.children[2].value = '';
         this.changeInputWidth()
-        this.enterCallback()
     }
 
     addClassList(str) {

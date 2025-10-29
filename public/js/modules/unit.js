@@ -7,6 +7,7 @@ export default class Unit {
         this.size = size;
         this.color = color;
         this.drawPosition = position.copy();
+        this.enable = true;
     }
 
     update() {
@@ -29,5 +30,10 @@ export default class Unit {
     setDrawPosition(pos) {
         this.drawPosition.x = this.position.x + pos.x;
         this.drawPosition.y = this.position.y + pos.y;
+    }
+
+    addPosition(vel) {
+        this.position = this.position.add(vel);
+        this.drawPosition = this.drawPosition.add(vel);
     }
 }
