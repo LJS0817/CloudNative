@@ -10,5 +10,9 @@ router.post('/sign', (req, res) => {
     content.sign(req, res);
 });
 
+router.get('/test', (req, res) => {
+    content.test(req, res);
+});
+
 module.exports = router;
 
