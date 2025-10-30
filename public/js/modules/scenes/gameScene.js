@@ -8,6 +8,7 @@ export default class GameScene extends Scene {
     constructor() {
         super();
         this.drawMap = [];
+        this.canvasSize = new Vec2(0, 0);
     }
 
     init(map, uiMng, sceneMng) {
@@ -19,7 +20,8 @@ export default class GameScene extends Scene {
         this.uiMng = uiMng;
     }
 
-    onResize(CENTER, size) {
+    onResize(CENTER, _, size) {
+        this.canvasSize = size.copy();
         this.hero.setDrawPosition(CENTER);
         this.bulletMng.onResize(CENTER, size);
 
@@ -39,7 +41,8 @@ export default class GameScene extends Scene {
         };
         this.uiMng.addClassList('game');
 
-        this.bulletMng.createBullet(new Vec2(200, 200), this.hero.position.copy(), 'test');
+        const spawnPos = this.getRandomSpawnPosition();
+        this.bulletMng.createBullet(spawnPos, this.hero.position.copy(), 'test');
     }
 
     update() {
@@ -67,5 +70,35 @@ export default class GameScene extends Scene {
 
     dispose() {
         this.uiMng.removeClassList('game');
+    }
+
+    getRandomSpawnPosition() {
+        const halfWidth = this.canvasSize.x / 2;
+        const halfHeight = this.canvasSize.y / 2;
+        const padding = 100; // 화면 밖 100px 여유
+
+        const side = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
+        let x = 0;
+        let y = 0;
+
+        switch (side) {
+            case 0: // Top
+                x = Math.random() * (halfWidth * 2) - halfWidth; // -halfWidth ~ +halfWidth
+                y = -halfHeight - padding;
+                break;
+            case 1: // Right
+                x = halfWidth + padding;
+                y = Math.random() * (halfHeight * 2) - halfHeight; // -halfHeight ~ +halfHeight
+                break;
+            case 2: // Bottom
+                x = Math.random() * (halfWidth * 2) - halfWidth;
+                y = halfHeight + padding;
+                break;
+            case 3: // Left
+                x = -halfWidth - padding;
+                y = Math.random() * (halfHeight * 2) - halfHeight;
+                break;
+        }
+        return new Vec2(x, y);
     }
 }

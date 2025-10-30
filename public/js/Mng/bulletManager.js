@@ -8,7 +8,7 @@ export default class BulletManager {
         for(let i = 0; i < this.MAX_BULLET; i++) {
             this.bulletPool.push(new Bullet());
         }
-        this.baseSize = new Vec2(1920, 800); // 기준 캔버스 너비 (speed 300의 기준)
+        this.baseSize = new Vec2(1686, 1271); // 기준 캔버스 너비 (speed 300의 기준)
         this.speedScale = new Vec2(1.0, 1.0);
     }
 
@@ -33,6 +33,7 @@ export default class BulletManager {
     onResize(center, size) {
         this.speedScale.x = size.x / this.baseSize.x;
         this.speedScale.y = size.y / this.baseSize.y;
+        console.log(this.speedScale)
         for(let i = 0; i < this.MAX_BULLET; i++) {
             this.bulletPool[i].setDrawPosition(center);
             if(this.bulletPool[i].enable) {

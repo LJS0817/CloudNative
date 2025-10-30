@@ -6,7 +6,7 @@ export default class Bullet extends Sphere {
     constructor() {
         super(new Vec2(-10000, -10000), 30, '#86ff80ff');
         this.enable = false;
-        this.baseSpeed = 300;
+        this.baseSpeed = 750;
         this.direction = new Vec2(0, 0);
         this.word = '';
         this.freeze = false;
@@ -22,7 +22,6 @@ export default class Bullet extends Sphere {
 
     draw(ctx) {
         if(this.enable) {
-            console.log(this.drawPosition);
             super.draw(ctx, "B");
 
             ctx.fillStyle = this.freeze ? getComputedStyle(ctx.canvas).getPropertyValue("--primary") : 'white';
@@ -34,7 +33,8 @@ export default class Bullet extends Sphere {
     activate(pos, dir, word, scale) {
         this.addPosition(pos.sub(this.position));
         this.direction = dir;
-        this.velocity = this.direction.mul(scale.mul(this.baseSpeed));
+        this.velocity = this.direction.mul(this.baseSpeed);
+        // this.velocity = this.direction.mul(scale.mul(this.baseSpeed));
         this.enable = true;
         this.word = word;
     }
