@@ -17,7 +17,7 @@ export default class MenuScene extends Scene {
         this.uiMng = uiMng;
     }
 
-    onResize(CENTER, padding) {
+    onResize(CENTER, padding, size) {
         const defaultRadius = this.drawMap[0].size;
         let offset = new Vec2(CENTER.x - padding - defaultRadius * 2, CENTER.y - padding - defaultRadius * 2);
         for (let i = 0; i < this.drawMap.length; i++) { 

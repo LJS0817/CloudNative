@@ -23,9 +23,9 @@ export default class SceneManager {
     getCurrentScene() { return this.scenes[this.index]; }
     getScene(idx) { return this.scenes[idx]; }
 
-    onResize(CENTER, padding) {
+    onResize(CENTER, padding, size) {
         for(let i = 0; i < this.scenes.length; i++) {
-            this.getScene(i).onResize(CENTER, padding);
+            this.getScene(i).onResize(CENTER, padding, size);
         }
     }
 }

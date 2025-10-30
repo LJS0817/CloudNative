@@ -19,9 +19,9 @@ export default class GameScene extends Scene {
         this.uiMng = uiMng;
     }
 
-    onResize(CENTER, padding) {
+    onResize(CENTER, size) {
         this.hero.setDrawPosition(CENTER);
-        this.bulletMng.setDrawPosition(CENTER);
+        this.bulletMng.onResize(CENTER, size);
 
         // const defaultRadius = this.drawMap[1].size;
         // let offset = new Vec2(CENTER.x - padding - defaultRadius * 2, CENTER.y - padding - defaultRadius * 2);

@@ -6,7 +6,8 @@ export default class Bullet extends Sphere {
     constructor() {
         super(new Vec2(-10000, -10000), 30, '#86ff80ff');
         this.enable = false;
-        this.speed = 300;
+        this.baseSpeed = 300;
+        this.direction = new Vec2(0, 0);
         this.word = '';
         this.freeze = false;
     }
@@ -31,7 +32,8 @@ export default class Bullet extends Sphere {
 
     activate(pos, dir, word) {
         this.addPosition(pos.sub(this.position));
-        this.velocity = dir.mul(this.speed);
+        this.direction = dir;
+        this.velocity = this.direction.mul(this.baseSpeed * scale);
         this.enable = true;
         this.word = word;
     }
@@ -40,7 +42,12 @@ export default class Bullet extends Sphere {
         this.enable = false;
         this.addPosition(new Vec2(-10000, -10000).sub(this.position))
         this.velocity = new Vec2(0, 0);
+        this.direction = new Vec2(0, 0);
         this.word = '';
+    }
+
+    updateSpeed(scale) {
+        this.velocity = this.direction.mul(scale.mul(this.baseSpeed));
     }
 
     die() {

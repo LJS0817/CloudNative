@@ -18,7 +18,7 @@ function resizeAndDraw() {
     canvas.height = boardContainer.clientHeight;
     CENTER.x = canvas.width / 2;
     CENTER.y = canvas.height / 2;
-    gameMng.resize(CENTER, padding);
+    gameMng.resize(CENTER, padding, new Vec2(canvas.width, canvas.height));
 }
 
 resizeAndDraw();

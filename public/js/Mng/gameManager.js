@@ -27,7 +27,7 @@ export default class GameManager {
         this.sceneMng.initScene(this.mapMng.getMap(), this.UIMng);
      }
 
-     update() { this.sceneMng.getCurrentScene().update(); }
-     draw(ctx) { this.sceneMng.getCurrentScene().draw(ctx); }
-     resize(center, padding) { this.sceneMng.onResize(center, padding); }
+    update() { this.sceneMng.getCurrentScene().update(); }
+    draw(ctx) { this.sceneMng.getCurrentScene().draw(ctx); }
+    resize(center, padding, size) { this.sceneMng.onResize(center, padding, size); }
 }

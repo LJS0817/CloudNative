@@ -1,4 +1,5 @@
 import Bullet from '../modules/bullet.js'
+import Vec2 from '../modules/vec2.js';
 
 export default class BulletManager {
     constructor() {
@@ -7,6 +8,8 @@ export default class BulletManager {
         for(let i = 0; i < this.MAX_BULLET; i++) {
             this.bulletPool.push(new Bullet());
         }
+        this.baseSize = new Vec2(1000, 800); // 기준 캔버스 너비 (speed 300의 기준)
+        this.speedScale = new Vec2(1.0, 1.0);
     }
 
     update() {
@@ -23,13 +26,18 @@ export default class BulletManager {
 
     createBullet(pos, target, word) {
         let b = this.bulletPool.pop();
-        b.activate(pos, target.sub(pos).normalized(), word);
+        b.activate(pos, target.sub(pos).normalized(), word, this.speedScale);
         this.bulletPool.push(b);
     }
 
-    setDrawPosition(center) {
+    onResize(center, size) {
+        this.speedScale.x = size.x / this.baseSize.x;
+        this.speedScale.y = size.y / this.baseSize.y;
         for(let i = 0; i < this.MAX_BULLET; i++) {
-            this.bulletPool[i].setDrawPosition(center);
+            if(this.bulletPool[i].enable) {
+                this.bulletPool[i].setDrawPosition(center);
+                this.bulletPool[i].updateSpeed(this.speedScale);
+            }
         }
     }
 
