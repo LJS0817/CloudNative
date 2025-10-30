@@ -12,8 +12,14 @@ export default class Vec2 {
         return new Vec2(this.x - otherVec.x, this.y - otherVec.y);
     }
 
-    mul(val) {
-        return new Vec2(this.x * val, this.y * val);
+    mul(other) {
+        if (other instanceof Vec2) {
+            // 인자가 Vec2일 경우 (컴포넌트별 곱)
+            return new Vec2(this.x * other.x, this.y * other.y);
+        } else {
+            // 인자가 스칼라(숫자)일 경우
+            return new Vec2(this.x * other, this.y * other);
+        }
     }
 
     mag(otherVec) {

@@ -6,5 +6,5 @@ export default class Scene {
     draw(c) { }
     dispose() { }
 
-    onResize(CENTER, padding) { }
+    onResize(CENTER, padding, size) { }
 }
