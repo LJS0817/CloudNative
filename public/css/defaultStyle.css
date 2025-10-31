@@ -12,6 +12,7 @@
     --room-primary: #8990C2;
 }
 
+
 /* 스크롤바 전체 영역 */
 ::-webkit-scrollbar {
     width: 12px; /* 스크롤바의 너비 */
@@ -47,4 +48,15 @@ body {
     margin: 0 auto;
     justify-content: center;
     align-items: center;
+}
+
+.background-particle {
+    position: fixed;
+    top: 0;
+    z-index: -10;
+    width: 100%;
+    height: 100%;
+}
+#backParticle {
+    display: block;
 }

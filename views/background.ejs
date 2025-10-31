@@ -3,8 +3,151 @@
 
     </canvas>
     <script>
-        const ctx = document.getElementById('backParticle').getContext('2d');
+        const canvas = document.getElementById('backParticle');
+        const ctx = canvas.getContext('2d');
 
-        
+        // 캔버스 크기 변수
+        let width, height;
+
+        // 별 파티클을 저장할 배열
+        let stars = [];
+        const starCount = 200; // 화면에 표시할 별의 총 개수 (조절 가능)
+
+        /**
+         * 별(Star) 객체를 정의하는 클래스
+         */
+        class Star {
+            constructor() {
+                // reset 메서드를 호출하여 별의 초기 상태 설정
+                this.reset();
+            }
+
+            /**
+             * 별의 속성을 (재)설정합니다.
+             */
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.radius = Math.random() * 2.5 + 1; // 별의 크기
+                this.alpha = 0;
+                this.maxAlpha = 0.4 + Math.random() * 0.6; // 최대 밝기 (0.4 ~ 1.0)
+
+                // --- 변경/추가된 부분 ---
+                // 현재 상태 ('waiting', 'fadingIn', 'holding', 'fadingOut')
+                this.state = 'waiting';
+
+                // 1~3초 (1000ms ~ 3000ms) 사이의 랜덤한 '유지' 시간
+                this.holdDuration = Math.random() * 2000 + 1000;
+                this.holdEndTime = 0; // '유지' 종료 시간 (나중에 설정됨)
+                // ---
+
+                // 0~9초(9000ms) 사이의 랜덤한 대기 시간 설정
+                this.twinkleTime = Date.now() + (Math.random() * 9000);
+            }
+
+            /**
+             * 매 프레임마다 별의 상태를 업데이트합니다.
+             */
+            update() {
+                const now = Date.now();
+
+                // 1. 'waiting' (대기) 상태
+                if (this.state === 'waiting' && now > this.twinkleTime) {
+                    this.state = 'fadingIn'; // 'fadingIn' (밝아짐) 상태로 변경
+                }
+                // 2. 'fadingIn' (밝아짐) 상태
+                else if (this.state === 'fadingIn') {
+                    this.alpha += 0.01; // 서서히 밝아짐
+                    if (this.alpha >= this.maxAlpha) {
+                        this.alpha = this.maxAlpha; // 최대 밝기에 도달하면
+
+                        // --- 변경된 부분 ---
+                        this.state = 'holding'; // 'holding' (유지) 상태로 변경
+                        // '유지' 종료 시간 설정
+                        this.holdEndTime = now + this.holdDuration;
+                        // ---
+                    }
+                }
+
+                // --- 추가된 부분 (새로운 상태) ---
+                // 3. 'holding' (유지) 상태
+                else if (this.state === 'holding') {
+                    // '유지' 종료 시간이 지났는지 확인
+                    if (now > this.holdEndTime) {
+                        this.state = 'fadingOut'; // 'fadingOut' (어두워짐) 상태로 변경
+                    }
+                    // (유지 상태에서는 alpha 값 변경 없음)
+                }
+                // ---
+
+                // 4. 'fadingOut' (어두워짐) 상태
+                else if (this.state === 'fadingOut') {
+                    this.alpha -= 0.01; // 서서히 어두워짐
+                    if (this.alpha <= 0) {
+                        this.alpha = 0;
+                        // 별이 완전히 사라짐 (투명도 0)
+                        // reset()을 호출하여 새 위치와 새 반짝임 시간으로 재설정
+                        this.reset();
+                    }
+                }
+            }
+
+            /**
+             * 캔버스에 별을 그립니다.
+             */
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                // 현재 alpha 값을 적용하여 별의 밝기(투명도) 조절
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+                ctx.fill();
+            }
+        }
+
+        /**
+         * 캔버스 크기를 설정하고 별을 초기화하는 함수
+         */
+        function init() {
+            // 캔버스 크기를 브라우저 창 크기에 맞춤
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+
+            // 별 배열 초기화
+            stars = [];
+            for (let i = 0; i < starCount; i++) {
+                stars.push(new Star());
+            }
+        }
+
+        /**
+         * 애니메이션 루프 함수
+         */
+        function animate() {
+            // 1. 캔버스 지우기 (검은색 배경으로 덮어쓰기)
+            // ctx.fillStyle = '#000';
+            // ctx.fillRect(0, 0, width, height);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 2. 모든 별의 상태를 업데이트하고 그리기
+            for (const star of stars) {
+                star.update();
+                star.draw();
+            }
+
+            // 3. 다음 프레임 요청
+            requestAnimationFrame(animate);
+        }
+
+        // --- 실행 ---
+
+        // 브라우저 창 크기가 변경될 때마다 init 함수를 다시 호출하여
+        // 캔버스 크기를 조절하고 별을 재배치합니다.
+        window.addEventListener('resize', init);
+
+        // 초기화 함수 실행
+        init();
+
+        // 애니메이션 시작
+        animate();
     </script>
 </div>
