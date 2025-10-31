@@ -1,4 +1,4 @@
-<div class="room <%= isLocked %>" onclick="location.href='/join/<%= id %>'">
+<div class="room <%= isLocked %>" <% if (isLocked == '') { %> onclick="location.href='/join/<%= id %>'"<% }%> >
     <h2>#<%= id %></h2>
     <h2><%= title %></h2>
     <p><%= count %> / 2</p>
