@@ -50,39 +50,28 @@ export default class GameScene extends Scene {
 
         this.curTime = Date.now();
 
-        const spawnPos = this.getRandomSpawnPosition();
-        this.bulletMng.createBullet(spawnPos, this.hero, 'test');
+        
+
+        this.intervalID = setInterval(() => {
+            for(let i = 0; i < Math.random() % 5; i++) {
+                const spawnPos = this.getRandomSpawnPosition();
+                this.bulletMng.createBullet(spawnPos, this.hero, 'test');
+            }
+        }, 1000)
     }
 
     update() {
+        this.clocking();
+
         this.hero.update();
         this.bulletMng.update();
 
         this.collisionDetection()
-
-       if (this.curTime > 0) {
-            const elapsedMilliseconds = Date.now() - this.curTime;
-            const seconds = Math.floor(elapsedMilliseconds / 1000);
-
-            // UI 업데이트
-            if (seconds !== this.elapsedSeconds) {
-                this.elapsedSeconds = seconds;
-                
-                // 예: UI 매니저를 통해 타이머 텍스트 업데이트
-                const minutes = Math.floor(seconds / 60);
-                const remainingSeconds = seconds % 60;
-                this.uiMng.UpdateUIText(1, `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`);
-            }
-        }
     }
 
     draw(c) { 
         this.hero.draw(c);
         this.bulletMng.draw(c);
-        // this.drawMap[0].draw(c);
-        // for(let i = 1; i < this.drawMap.length; i++) {
-        //     this.drawMap[i].draw(c, i + 1);
-        // }
     }
 
     collisionDetection() {
@@ -91,6 +80,21 @@ export default class GameScene extends Scene {
 
     dispose() {
         this.uiMng.removeClassList('game');
+    }
+
+    clocking() {
+        if (this.curTime > 0) {
+            const elapsedMilliseconds = Date.now() - this.curTime;
+            const seconds = Math.floor(elapsedMilliseconds / 1000);
+
+            // UI 업데이트
+            if (seconds !== this.elapsedSeconds) {
+                this.elapsedSeconds = seconds;
+                
+                const remainingSeconds = seconds % 60;
+                this.uiMng.UpdateUIText(1, `${remainingSeconds.toString().padStart(2, '0')}`);
+            }
+        }
     }
 
     getRandomSpawnPosition() {
