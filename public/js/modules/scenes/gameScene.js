@@ -9,6 +9,7 @@ export default class GameScene extends Scene {
         super();
         this.drawMap = [];
         this.canvasSize = new Vec2(0, 0);
+        this.curTime = 0;
     }
 
     init(map, uiMng, sceneMng) {
@@ -33,16 +34,24 @@ export default class GameScene extends Scene {
     }
 
     start() {
-        this.uiMng.UpdateUIText(0, 'TEST');
+        this.uiMng.UpdateUIText(0, 'SERVIVE');
         this.uiMng.UpdateUIText(1, '12345');
         // this.uiMng.enterCallback = () => { this.sceneMng.changeScene(0) };
         this.uiMng.enterCallback = (str) => { 
-            return this.bulletMng.checkValidInput(str);
+            let rst = this.bulletMng.checkValidInput(str);
+            if(rst != undefined) {
+                this.bulletMng.createBullet(this.hero.position.copy(), rst, undefined)
+                this.hero.attack()
+                // this.uiMng.UpdateUIText(1, this.hero.cnt);
+            }
+            return rst != undefined;
         };
         this.uiMng.addClassList('game');
 
+        this.curTime = Date.now();
+
         const spawnPos = this.getRandomSpawnPosition();
-        this.bulletMng.createBullet(spawnPos, this.hero.position.copy(), 'test');
+        this.bulletMng.createBullet(spawnPos, this.hero, 'test');
     }
 
     update() {
@@ -50,9 +59,21 @@ export default class GameScene extends Scene {
         this.bulletMng.update();
 
         this.collisionDetection()
-        // for(let i = 0; i < this.drawMap.length; i++) {
-        //     this.drawMap[i].update();
-        // }
+
+       if (this.curTime > 0) {
+            const elapsedMilliseconds = Date.now() - this.curTime;
+            const seconds = Math.floor(elapsedMilliseconds / 1000);
+
+            // UI 업데이트
+            if (seconds !== this.elapsedSeconds) {
+                this.elapsedSeconds = seconds;
+                
+                // 예: UI 매니저를 통해 타이머 텍스트 업데이트
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                this.uiMng.UpdateUIText(1, `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`);
+            }
+        }
     }
 
     draw(c) { 
@@ -65,7 +86,7 @@ export default class GameScene extends Scene {
     }
 
     collisionDetection() {
-        this.bulletMng.collisionDetect(this.hero);
+        this.bulletMng.collisionDetect();
     }
 
     dispose() {

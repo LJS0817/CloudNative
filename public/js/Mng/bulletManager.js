@@ -25,15 +25,15 @@ export default class BulletManager {
     }
 
     createBullet(pos, target, word) {
-        let b = this.bulletPool.pop();
-        b.activate(pos, target.sub(pos).normalized(), word, this.speedScale);
+        let b = this.bulletPool.shift();
+        b.activate(pos, target.position.sub(pos).normalized(), word, this.speedScale, target);
         this.bulletPool.push(b);
     }
 
     onResize(center, size) {
         this.speedScale.x = size.x / this.baseSize.x;
         this.speedScale.y = size.y / this.baseSize.y;
-        console.log(this.speedScale)
+        // console.log(this.speedScale)
         for(let i = 0; i < this.MAX_BULLET; i++) {
             this.bulletPool[i].setDrawPosition(center);
             if(this.bulletPool[i].enable) {
@@ -42,9 +42,9 @@ export default class BulletManager {
         }
     }
 
-    collisionDetect(target) {
+    collisionDetect() {
         for(let i = 0; i < this.MAX_BULLET; i++) {
-            if(this.bulletPool[i].collsionCondition(target)) {
+            if(this.bulletPool[i].collsionCondition()) {
                 this.bulletPool[i].onCollision();
             }
         }
@@ -54,10 +54,10 @@ export default class BulletManager {
         for(let i = 0; i < this.MAX_BULLET; i++) {
             if(this.bulletPool[i].compareWord(str)) {
                 // this.bulletPool[i].deactivate();
-                this.bulletPool[i].die();
-                return true;
+                // this.bulletPool[i].die();
+                return this.bulletPool[i];
             }
         }
-        return false;
+        return undefined;
     }
 }
