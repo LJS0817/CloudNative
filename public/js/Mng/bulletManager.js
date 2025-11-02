@@ -3,7 +3,7 @@ import Vec2 from '../modules/vec2.js';
 
 export default class BulletManager {
     constructor() {
-        this.MAX_BULLET = 50;
+        this.MAX_BULLET = 100;
         this.bulletPool = [];
         for(let i = 0; i < this.MAX_BULLET; i++) {
             this.bulletPool.push(new Bullet());
@@ -55,6 +55,7 @@ export default class BulletManager {
             if(this.bulletPool[i].compareWord(str)) {
                 // this.bulletPool[i].deactivate();
                 // this.bulletPool[i].die();
+                this.bulletPool[i].aiming();
                 return this.bulletPool[i];
             }
         }

@@ -6,5 +6,8 @@ router.get('/', (req, res) => {
     content.home(req, res);
 });
 
-module.exports = router;
+router.post('/room', (req, res) => {
+    content.create(req, res);
+});
 
+module.exports = router;

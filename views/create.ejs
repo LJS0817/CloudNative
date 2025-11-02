@@ -1,7 +1,7 @@
 <script src="/js/createScript.js" defer></script>
 <div class="create-container">
     <h1>Create Room</h1>
-    <form action="/create-room" method="post">
+    <form action="/create/room" method="post">
         <div class="form-group">
             <label for="roomName">Room Name</label>
             <input type="text" id="roomName" name="roomName" placeholder="ENTER ROOM TITLE">
@@ -11,15 +11,16 @@
             <label for="roomPassword">Room Password</label>
             <div class="input-group">
                 <button type="button" id='toggle-btn' class="toggle-btn" onclick="togglePassword()">DISABLED</button>
-                <input type="text" id="roomPassword" name="roomPassword" value="T02KX">
+                <input type="hidden" id="passwordActivate" name="passwordActivate" value="d">
+                <input type="text" id="roomPassword" name="roomPassword" value="">
             </div>
         </div>
 
         <div class="form-group">
             <label for="roomCode">Room Code</label>
             <div class="input-with-button">
-                <input type="text" id="roomCode" name="roomCode" value="T02KX" readonly>
-                <button type="button" class="copy-btn">COPY</button>
+                <input type="text" id="roomCode" name="roomCode" value="<%= some.roomcode %>" readonly>
+                <button type="button" class="copy-btn" onclick="copyCode()">COPY</button>
             </div>
         </div>
 

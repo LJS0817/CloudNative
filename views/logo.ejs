@@ -6,17 +6,37 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/defaultStyle.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <script src="/js/logoScript.js" defer></script>
+    <link rel="stylesheet" href="/user/css/defaultStyle.css">
+    <link rel="stylesheet" href="/user/css/style.css">
+    <script src="/user/js/logoScript.js" defer></script>
     <title>Document</title>
 </head>
 <body>
     <%- include(background) %>
     <div id="container">
         <h1 id="title">Hello World!</h1>
-        <form action="/sign" method="post" id="signForm">
-            <input type="hidden" name="flag" id="signFlag" value="i"/>
+        <% if(check[0] == 'f') { %>
+            <p id="incor">
+                <% if(check.length < 3) { %>
+                    Incorrect ID or password.
+                <% } else { %>
+                    <% if(check[3] == 'd') { %>
+                        ID
+                    <% } if(check.length > 4) { %>
+                        and
+                    <% } if(check.indexOf('u') > -1) {%>
+                        Username
+                    <% } if(check.length > 4) { %>
+                        are
+                    <% } else { %>
+                        is
+                    <% } %>
+                     already taken.
+                <% } %>
+            </p>
+        <% } %>
+        <form action="/user/sign" method="post" id="signForm">
+            <input type="hidden" name="flag" id="signFlag" value="<%= check[1] %>"/>
             <div class="inputField">
                 <label for="id">ID <p>This ID is not a valid or not supported.</p></label>
                 <input type="text" id="id" name="id" spellcheck="false">
@@ -27,7 +47,7 @@
                 <a href="#">Forgot my password</a>
             </div>
             <div class="inputField hidden" id="userInput">
-                <label for="username">USERNAME <p>Use at least 2 characters</p></label>
+                <label for="username">USERNAME <p>Use at least 2 characters ( no space )</p></label>
                 <input type="text" id="username" name="username" spellcheck="false">
             </div>
             <input id="signSubmit" type="submit" value="Sign in">

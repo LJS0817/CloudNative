@@ -18,6 +18,8 @@ export default class Bullet extends Sphere {
         this.MIN_COLOR = '#ffa3a3ff';
 
         this.target = undefined;
+
+        this.aimed = false;
     }
 
     update() {
@@ -80,7 +82,11 @@ export default class Bullet extends Sphere {
         console.log("collide")
     }
 
+    aiming() {
+        this.aimed = true;
+    }
+
     compareWord(str) {
-        return this.enable && this.word != undefined && str.replaceAll(' ', '') == this.word;
+        return this.enable && !this.aimed && this.word != undefined && str.replaceAll(' ', '') == this.word;
     }
 }

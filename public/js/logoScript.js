@@ -15,19 +15,33 @@ create.onclick = (e) => {
         userName.classList.add('hidden');
         create.innerText = "Create Account"
         submit.value = "Sign in";
-        flag.value = "i ";
+        flag.value = "i";
     }
     else {
         container.classList.add('up');
         userName.classList.remove('hidden');
         create.innerText = "Return to Sign in";
         submit.value = "Sign up";
-        flag.value = "u ";
+        flag.value = "p";
+    }
+}
+
+window.onload = () => {
+    if (form.elements.flag.value == 'p') {
+        container.classList.add('up');
+        userName.classList.remove('hidden');
+        create.innerText = "Return to Sign in";
+        submit.value = "Sign up";
     }
 }
 
 form.onsubmit = (e) => {
-    if (form.elements.flag == 'f') e.preventDefault();
+    const id = form.elements.id.value;
+    const pwd = form.elements.pwd.value;
+    const name = form.elements.username.value;
+    const flag = form.elements.flag.value;
+
+    if (id.length < 5 || id.indexOf(' ') > -1 || pwd.length < 8 || (flag == 'p' && name.replaceAll(' ', '').length < 2)) e.preventDefault();
 }
 
 document.getElementById('id').onblur = (e) => {
