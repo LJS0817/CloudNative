@@ -4,9 +4,9 @@ export default class SceneManager {
         this.index = -1;
     }
 
-    initScene(map, uiMng) {
+    initScene(map, uiMng, socket) {
         for(let i = 0; i < this.scenes.length; i++) {
-            this.scenes[i].init(map, uiMng, this);
+            this.scenes[i].init(map, uiMng, socket, this);
         }
         this.changeScene(0);
     }

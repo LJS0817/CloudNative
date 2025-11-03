@@ -8,13 +8,14 @@ export default class MenuScene extends Scene {
         this.drawMap = [];
     }
 
-    init(map, uiMng, sceneMng) {
+    init(map, uiMng, socket, sceneMng) {
         this.sceneMng = sceneMng;
         this.drawMap = [];
         for(let i = 0; i < map.length; i++) {
             this.drawMap.push(new Sphere(new Vec2(0, 0)))
         }
         this.uiMng = uiMng;
+        this.socket = socket;
     }
 
     onResize(CENTER, padding, size) {

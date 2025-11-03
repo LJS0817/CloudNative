@@ -12,13 +12,14 @@ export default class GameScene extends Scene {
         this.curTime = 0;
     }
 
-    init(map, uiMng, sceneMng) {
+    init(map, uiMng, socket, sceneMng) {
         this.sceneMng = sceneMng;
         this.hero = new Hero();
         this.bulletMng = new BulletManager();
         this.drawMap
         // this.drawMap.push(new Sphere(new Vec2(0, 0)))
         this.uiMng = uiMng;
+        this.socket = socket;
     }
 
     onResize(CENTER, _, size) {
