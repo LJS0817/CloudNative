@@ -1,48 +1,47 @@
 import Scene from '../scene.js';
-import Sphere from '../sphere.js';
-import Vec2 from '../vec2.js'
 
 export default class MenuScene extends Scene {
     constructor() {
         super();
-        this.drawMap = [];
     }
 
     init(map, uiMng, socket, sceneMng) {
         this.sceneMng = sceneMng;
-        this.drawMap = [];
-        for(let i = 0; i < map.length; i++) {
-            this.drawMap.push(new Sphere(new Vec2(0, 0)))
-        }
         this.uiMng = uiMng;
         this.socket = socket;
+        this.map = map;
     }
 
     onResize(CENTER, padding, size) {
-        const defaultRadius = this.drawMap[0].size;
-        let offset = new Vec2(CENTER.x - padding - defaultRadius * 2, CENTER.y - padding - defaultRadius * 2);
-        for (let i = 0; i < this.drawMap.length; i++) { 
-            this.drawMap[i].drawPosition.x = offset.x + (i % 3) * (defaultRadius * 2 + padding);
-            this.drawMap[i].drawPosition.y = offset.y + parseInt(i / 3) * (defaultRadius * 2 + padding);
-        }
+        this.map.onResize(CENTER, padding, size);
     }
 
     start() {
-        this.uiMng.UpdateUIText(0, 'PRESS ENTER');
+        this.uiMng.inGameIcon.classList.add('hidden');
+        this.uiMng.UpdateUIText(0, this.uiMng.Contains('waiting') ? 'WAITING FOR PLAYER...' : 'ENTER MAP NUMBER (1-9)');
         this.uiMng.UpdateUIText(1, '');
-        this.uiMng.enterCallback = (str) => { this.sceneMng.changeScene(1); return true; };
+        this.uiMng.enterCallback = (str) => { 
+            console.log(this.uiMng.Contains('waiting'));
+            if(this.uiMng.Contains('waiting')) return false;
+            const idx = parseInt(str);
+            this.socket.emit('enterText', {text : str});   
+            return true; 
+            // if(!isNaN(idx) && idx <= 9 && this.map.getMapIndex(idx) < 2) {
+            //     this.socket.emit('enterText', {text : str});    
+            //     return true;
+            // }
+            // return false;
+        };
     }
 
-    update() {
+    update(dt) {
         // for(let i = 0; i < this.drawMap.length; i++) {
         //     this.drawMap[i].update();
         // }
     }
 
     draw(c) { 
-        for(let i = 0; i < this.drawMap.length; i++) {
-            this.drawMap[i].draw(c, i + 1);
-        }
+        this.map.mapDraw(c);
     }
 
     collisionDetection(input) {

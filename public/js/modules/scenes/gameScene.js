@@ -1,8 +1,8 @@
 import Scene from '../scene.js';
 import Hero from '../hero.js';
 import Vec2 from '../vec2.js'
-import Sphere from '../sphere.js';
 import BulletManager from '../../Mng/bulletManager.js';
+import RazerManager from '../../Mng/razerManager.js';
 
 export default class GameScene extends Scene {
     constructor() {
@@ -16,16 +16,23 @@ export default class GameScene extends Scene {
         this.sceneMng = sceneMng;
         this.hero = new Hero();
         this.bulletMng = new BulletManager();
-        this.drawMap
+        this.razerMng = new RazerManager();
         // this.drawMap.push(new Sphere(new Vec2(0, 0)))
         this.uiMng = uiMng;
         this.socket = socket;
+
+        this.socket.on('word', (word) => {
+            console.log(word);
+            const spawnPos = this.getRandomSpawnPosition();
+            this.bulletMng.createBullet(spawnPos, this.hero, word);
+        })
     }
 
     onResize(CENTER, _, size) {
         this.canvasSize = size.copy();
         this.hero.setDrawPosition(CENTER);
         this.bulletMng.onResize(CENTER, size);
+        this.razerMng.onResize(CENTER);
 
         // const defaultRadius = this.drawMap[1].size;
         // let offset = new Vec2(CENTER.x - padding - defaultRadius * 2, CENTER.y - padding - defaultRadius * 2);
@@ -35,51 +42,65 @@ export default class GameScene extends Scene {
     }
 
     start() {
-        this.uiMng.UpdateUIText(0, 'SERVIVE');
-        this.uiMng.UpdateUIText(1, '12345');
+        this.uiMng.inGameIcon.classList.remove('hidden');
+        this.uiMng.UpdateUIText(0, 'SURVIVE');
+        this.uiMng.UpdateUIText(1, `Count : ${this.hero.cnt} / 20`);
         // this.uiMng.enterCallback = () => { this.sceneMng.changeScene(0) };
         this.uiMng.enterCallback = (str) => { 
-            let rst = this.bulletMng.checkValidInput(str);
-            if(rst != undefined) {
-                this.bulletMng.createBullet(this.hero.position.copy(), rst, undefined)
-                this.hero.attack()
-                // this.uiMng.UpdateUIText(1, this.hero.cnt);
+            if(str == 'return') {
+                this.socket.emit('enterText', {text:'return'})
+                return true;
+            } else {
+                let rst = this.bulletMng.checkValidInput(str);
+                if(rst != undefined) {
+                    this.razerMng.fire(this.hero.position.copy(), rst);
+                    this.socket.emit('catch')
+                    this.hero.attack();
+                    this.uiMng.UpdateUIText(1, `Count : ${this.hero.cnt} / 20`);
+                }
+                return rst != undefined;
             }
-            return rst != undefined;
         };
+
+        this.hero.init();
+        this.bulletMng.init();
+
         this.uiMng.addClassList('game');
 
         this.curTime = Date.now();
 
-        
-
-        this.intervalID = setInterval(() => {
-            for(let i = 0; i < Math.random() % 5; i++) {
-                const spawnPos = this.getRandomSpawnPosition();
-                this.bulletMng.createBullet(spawnPos, this.hero, 'test');
-            }
-        }, 1000)
+        this.failed = false;
     }
 
-    update() {
-        this.clocking();
+    update(dt) {
+        // this.clocking();
 
-        this.hero.update();
-        this.bulletMng.update();
+        if(this.hero.hp <= 0 && !this.failed) {
+            this.failed = true;
+            this.uiMng.UpdateUIText(0, 'FAILED');
+            this.uiMng.UpdateUIText(1, 'please entner "return" to map');
+            this.socket.emit('fail');
+        } else if(!this.failed) {
+            this.hero.update();
+            this.bulletMng.update(dt);
+            this.razerMng.update(dt);
 
-        this.collisionDetection()
+            this.collisionDetection();
+        }
     }
 
     draw(c) { 
+        this.razerMng.draw(c);
         this.hero.draw(c);
         this.bulletMng.draw(c);
     }
 
     collisionDetection() {
-        this.bulletMng.collisionDetect();
+        if(!this.failed) this.bulletMng.collisionDetect();
     }
 
     dispose() {
+        clearInterval(this.intervalID);
         this.uiMng.removeClassList('game');
     }
 

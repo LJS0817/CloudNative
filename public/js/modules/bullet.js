@@ -6,7 +6,7 @@ export default class Bullet extends Sphere {
     constructor() {
         super(new Vec2(-10000, -10000), 30, '#86ff80ff');
         this.enable = false;
-        this.baseSpeed = 750;
+        this.baseSpeed = 50000;
         this.direction = new Vec2(0, 0);
         this.word = undefined;
         this.freeze = false;
@@ -20,11 +20,50 @@ export default class Bullet extends Sphere {
         this.target = undefined;
 
         this.aimed = false;
+        this.hasBeenOnScreen = false;
     }
 
-    update() {
+    init() {
+        this.enable = false;
+        this.word = undefined;
+        this.freeze = false;
+
+        this.target = undefined;
+
+        this.aimed = false;
+        this.hasBeenOnScreen = false;
+    }
+
+    update(deltaTime, canvasSize) {
         if(this.enable && !this.freeze) {
-            this.addPosition(this.velocity);
+            this.addPosition(this.velocity.mul(deltaTime));
+
+            if (canvasSize) {
+                const halfWidth = canvasSize.x / 2;
+                const halfHeight = canvasSize.y / 2;
+
+                const isInside = (this.position.x >= -halfWidth &&
+                    this.position.x <= halfWidth &&
+                    this.position.y >= -halfHeight &&
+                    this.position.y <= halfHeight);
+
+                if (this.hasBeenOnScreen) {
+                    // (상태 2: 이미 화면 안에 들어왔었음)
+                    // 이제 화면 밖으로 "나가는지" 검사합니다.
+                    if (!isInside) {
+                        this.deactivate(); // (주석 해제)
+                        console.log("Bullet deactivated (exited screen)");
+                    }
+                } else {
+                    // (상태 1: 아직 화면 안에 들어온 적 없음)
+                    // 화면 안으로 "들어왔는지" 검사합니다.
+                    if (isInside) {
+                        this.hasBeenOnScreen = true;
+                        // console.log("Bullet has entered the screen");
+                    }
+                    // (아직도 밖이라면(isInside == false) 아무것도 하지 않습니다)
+                }
+            }
         } else if(this.freeze) {
             
         }
@@ -44,9 +83,9 @@ export default class Bullet extends Sphere {
     activate(pos, dir, word, scale, target) {
         this.addPosition(pos.sub(this.position));
         this.direction = dir;
-        this.velocity = this.direction.mul(this.baseSpeed);
+        // this.velocity = this.direction.mul(this.baseSpeed);
         this.target = target;
-        // this.velocity = this.direction.mul(scale.mul(this.baseSpeed));
+        this.velocity = this.direction.mul(scale.mul(this.baseSpeed));
         this.enable = true;
         this.word = word;
 
@@ -61,6 +100,7 @@ export default class Bullet extends Sphere {
         this.direction = new Vec2(0, 0);
         this.word = undefined;
         this.target = undefined;
+        this.hasBeenOnScreen = false;
     }
 
     updateSpeed(scale) {

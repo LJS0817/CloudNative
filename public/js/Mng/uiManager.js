@@ -3,17 +3,16 @@ export default class UIMananger {
         this.ui = uiParent;
         this.enterCallback = () => { console.log('UIMNG') };
 
+        this.inputText = this.ui.children[2];
+        this.inputText.children[0].addEventListener('input', (e) => { this.changeInputWidth() });
+
+        this.inGameIcon = this.ui.children[3];
         this.changeInputWidth()
-        this.ui.children[2].addEventListener('input', (e) => { this.changeInputWidth() });
-        // this.ui.children[2].onkeypress = (e) => {
-        //     this.ui.children[3].style['width'] = this.ui.children[2].getBoundingClientRect().width + 'px';
-        // }
     }
 
     changeInputWidth() {
-        if(document.activeElement !== this.ui.children[2]) this.ui.children[2].focus();
-        // if(this.ui.children[2].)
-        this.ui.children[3].style['width'] = this.ui.children[2].getBoundingClientRect().width + 'px';
+        if(document.activeElement !== this.inputText.children[0]) this.inputText.children[0].focus();
+        this.inputText.children[1].style['width'] = this.inputText.children[0].getBoundingClientRect().width + 'px';
     }
 
     UpdateUIText(idx, str) {
@@ -21,8 +20,8 @@ export default class UIMananger {
     }
 
     onEnterEvent() {
-        if(this.enterCallback(this.ui.children[2].value))
-            this.ui.children[2].value = '';
+        if(this.enterCallback(this.inputText.children[0].value))
+            this.inputText.children[0].value = '';
         this.changeInputWidth()
     }
 
@@ -32,5 +31,9 @@ export default class UIMananger {
 
     removeClassList(str) {
         this.ui.classList.remove(str)
+    }
+
+    Contains(str) {
+        return this.ui.classList.contains(str);
     }
 }

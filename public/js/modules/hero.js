@@ -8,6 +8,11 @@ export default class Hero extends Sphere {
         this.cnt = 0;
     }
 
+    init() {
+        this.hp = 5;
+        this.cnt = 0;
+    }
+
     update() {
 
     }
@@ -32,7 +37,7 @@ export default class Hero extends Sphere {
     }
 
     attacked() {
-        console.log("TEST")
+        // console.log("TEST")
         this.setHP(this.hp - 1);
     }
 }

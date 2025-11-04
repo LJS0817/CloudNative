@@ -1,7 +1,6 @@
 export default class SceneManager {
     constructor(scenes) {
         this.scenes = [];
-        this.index = -1;
     }
 
     initScene(map, uiMng, socket) {
@@ -9,6 +8,12 @@ export default class SceneManager {
             this.scenes[i].init(map, uiMng, socket, this);
         }
         this.changeScene(0);
+    }
+
+    setSelfId(idx) {
+        for(let i = 0; i < this.scenes.length; i++) {
+            this.scenes[i].setSelfId(idx);
+        }
     }
 
     addScene(scene) {
@@ -22,6 +27,7 @@ export default class SceneManager {
     }
     getCurrentScene() { return this.scenes[this.index]; }
     getScene(idx) { return this.scenes[idx]; }
+    getSceneIndex() { return this.index; }
 
     onResize(CENTER, padding, size) {
         for(let i = 0; i < this.scenes.length; i++) {
